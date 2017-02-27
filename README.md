@@ -47,3 +47,7 @@ index.ejs的内容：
 </html>
 
 ```
+安装 html-webpack-plugin 插件 https://www.npmjs.com/package/html-webpack-plugin
+```
+npm install --save-dev html-webpack-plugin
+```
