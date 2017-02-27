@@ -104,3 +104,48 @@ build/index.html
 
 ```
 js已经被引用到页脚了
+
+### 安装 js压缩插件 uglifyjs-webpack-plugin 
+```
+npm install --save-dev uglifyjs-webpack-plugin
+```
+### webpack.config.js配置修改：
+```
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const templatePath = __dirname + "/src/template/";
+module.exports = {
+        entry: templatePath + "index.js",
+        output: {
+                path: path.join(__dirname, 'build'),
+                filename: 'index_bundle.[chunkhash].js'
+        },
+
+        plugins: [
+                new HtmlWebpackPlugin({
+                        title: '按照ejs模板生成页面',
+                        filename: 'index.html',
+                        template: templatePath + 'index.ejs'
+                }),
+                new UglifyJSPlugin()
+        ]
+}
+
+```
+看index.js的源码
+```
+/*随便写点js用来测试*/
+(function(){
+        window.onload = function(){
+                console.log("调用onload事件");
+                alert("页面加载的时候弹出来");
+        }
+})()
+
+```
+生成后的文件build/index.js
+```
+!function(n){function t(r){if(o[r])return o[r].exports;var e=o[r]={i:r,l:!1,exports:{}};return n[r].call(e.exports,e,e.exports,t),e.l=!0,e.exports}var o={};return t.m=n,t.c=o,t.i=function(n){return n},t.d=function(n,o,r){t.o(n,o)||Object.defineProperty(n,o,{configurable:!1,enumerable:!0,get:r})},t.n=function(n){var o=n&&n.__esModule?function(){return n.default}:function(){return n};return t.d(o,"a",o),o},t.o=function(n,t){return Object.prototype.hasOwnProperty.call(n,t)},t.p="",t(t.s=0)}([function(n,t){!function(){window.onload=function(){console.log("调用onload事件"),alert("页面加载的时候弹出来")}}()}]);
+
+```
