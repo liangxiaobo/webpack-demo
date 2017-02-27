@@ -27,3 +27,23 @@ npm install --save-dev webpack
 npm init -y
 ```
 之后，根目录下会多一个文件package.json
+
+index.ejs的内容：
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+
+  </head>
+  <body>
+    <h1>这是一个用<b>html-webpack-plugin</b>生成的HTML页面</h1>
+
+
+  </body>
+</html>
+
+```
