@@ -20,3 +20,10 @@
 ```
 npm install --save-dev webpack
 ```
+
+### 第三步 创建package.json
+
+```
+npm init -y
+```
+之后，根目录下会多一个文件package.json
