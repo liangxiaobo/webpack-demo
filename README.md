@@ -159,3 +159,88 @@ npm install --save-dev extract-text-webpack-plugin
 ```
 npm install css-loader style-loader --save-dev
 ```
+### webpack.config.js修改
+```
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const templatePath = __dirname + "/src/template/";
+module.exports = {
+        entry: {
+                        index: templatePath + "index.js"
+                },
+        output: {
+                path: path.join(__dirname, 'build'),
+                filename: 'index_bundle.[chunkhash].js'
+        },
+
+        module: {
+                rules: [
+                        {
+                                test: /\.css$/,
+                                loader: ExtractTextPlugin.extract({
+                                        fallback: "style-loader",
+                                        use: "css-loader?minimize"
+                                })
+                        }
+                ]
+        },
+
+        plugins: [
+                new HtmlWebpackPlugin({
+                        title: '按照ejs模板生成页面',
+                        filename: 'index.html',
+                        template: templatePath + 'index.ejs'
+                }),
+                new UglifyJSPlugin(),
+                new ExtractTextPlugin({
+                        filename: "style/[name].css?[chunkhash]"
+                })
+        ]
+}
+
+```
+生成后build的目录结构
+```
+├── index_bundle.0fac93adc8b2e76b43e9.js
+├── index.html
+└── style
+    └── index.css
+```
+build/inde.html的代码：
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>按照ejs模板生成页面</title>
+
+  <link href="style/index.css?0fac93adc8b2e76b43e9" rel="stylesheet"></head>
+  <body>
+    <h1>这是一个用<b>html-webpack-plugin</b>生成的HTML页面</h1>
+
+
+  <script type="text/javascript" src="index_bundle.0fac93adc8b2e76b43e9.js"></script></body>
+</html>
+
+```
+页面里已经引用了link
+
+### 看看生成前后的index.css的对比
+源码：
+```
+/*随便写点css*/
+body{
+        background: red;
+}
+body {font-size: 2em;}
+
+```
+打包后的代码(我写的css代码有点少，他把body样式合并成一个块了)：
+```
+body{background:red;font-size:2em}
+
+```
