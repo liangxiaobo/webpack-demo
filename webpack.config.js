@@ -20,6 +20,10 @@ module.exports = {
 					fallback: "style-loader",
 					use: "css-loader?minimize"
 				})
+			},
+			{
+				test: /\.(png|jpg|gif)$/,
+				loader: 'url-loader?limit=30000&name=./imgs/[hash].[ext]'
 			}
 		]
 	},
