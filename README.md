@@ -152,3 +152,10 @@ module.exports = {
 
 ### 下面也看看css的压缩，以及在页面里的Link 
 需要用到 extract-text-webpack-plugin 插件
+```
+npm install --save-dev extract-text-webpack-plugin
+```
+以及安装 css-loader 、 style-loader
+```
+npm install css-loader style-loader --save-dev
+```
