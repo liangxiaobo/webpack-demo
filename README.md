@@ -4,10 +4,11 @@
 ## 第一步 准备一下所需要的文件，目录结构
 
 ```
-├── build
-├── imgs
-└── template
-    ├── index.css
-    ├── index.ejs
-    └── index.js
+├── build // 存放打包后的文件
+└── src // 源文件
+    ├── imgs
+    └── template
+        ├── index.css
+        ├── index.ejs
+        └── index.js
 ```
