@@ -74,7 +74,7 @@ module.exports = {
 }
 
 ```
-执行  
+执行命令 
 ```
 webpack
 ```
@@ -244,3 +244,71 @@ body {font-size: 2em;}
 body{background:red;font-size:2em}
 
 ```
+
+### url-loader 可以把图片较小的显示成base64格式 来减少http请求
+先在imgs下添加两张图片
+```
+├── a.jpg // size:341407 byte
+└── timg.jpg // size: 28616 byte
+```
+在webpack.config.js module里添加:
+```
+ module: {
+                rules: [
+                        {
+                                test: /\.css$/,
+                                loader: ExtractTextPlugin.extract({
+                                        fallback: "style-loader",
+                                        use: "css-loader?minimize"
+                                })
+                        },
+                        {
+                                test: /\.(png|jpg|gif)$/,
+                                loader: 'url-loader?limit=30000&name=./imgs/[hash].[ext]'
+                        }       
+                ]
+        },
+        
+```
+先安装 url-loader file-loader
+``
+npm install --save-dev url-loader file-loader 
+``
+limit 是指小于30000byte图片将转换成base64，否则的话，将图片打包到buile/imgs下面，ext是指文件的后缀（jpb,gif等）
+
+index.ejs内容添加：
+```
+<img src="<%= require('../imgs/timg.jpg') %>" />
+<img src="<%= require('../imgs/a.jpg') %>" />
+
+```
+执行 webpack 后 build目录, 发现少了一张图片
+```
+├── imgs
+│   └── c71f11e055fad46906a7e52d321d4785.jpg
+├── index_bundle.0fac93adc8b2e76b43e9.js
+├── index.html
+└── style
+    └── index.css
+```
+来看生成的index.html内容:
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" /> 
+    <title>按照ejs模板生成页面</title>
+
+  <link href="style/index.css?0fac93adc8b2e76b43e9" rel="stylesheet"></head>
+  <body>
+    <h1>这是一个用<b>html-webpack-plugin</b>生成的HTML页面</h1>
+
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2wBDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzf/wAARCAKAAn8DASIAAhEBAxEB/8QAHAAAAgMBAQEBAAAAAAAAAAAAAgMAAQQFBgcI/8QAPBAAAgIBBAAFAwIEBAUDBQEAAAECEQMEEiExBRMiQVEyYXEGFEJSgZEjobHBBxUzYvAkctElQ1OC4fH/xAAaAQADAQEBAQAAAAAAAAAAAAAAAQIDBAUG/8QAJREBAQACAgICAwADAQEAAAAAAAECEQMhEjEEEyJBUTJhcRQF/9oADAMBAAIRAxEAPwD7S3YpyDYifEzm8jNXIaQuAwcJdUVJF38lNlALRVF2VySBQhbG1RIKollyGpIv2J7lplQlFlEGayEIMkIQsAososYQhCAEIQgBCEIAQhCAEIQgBCEIAQhCAEIQgBCEIAQhCAEIQgBKKaLIAAyldhtEojxAWy0RotBIa6IQhZIQhA0EKZZKECpIXKNoe0BLgxyxMhqhc3S7JlyVZlyZb4ObIFZ5vfUfc1aTFS3Mz4qnOzp4klEWM7NaSoCeCGT6ojPcJGkgrL+yhK9rlH8Mz5tBlgnLHnl+GdZLgXkKywkgcPG9XCfrpo2YssmvUjUsKctxWTDTuKI8bAFSi+0DNwRNrQMlaDYJyZow5bKxa7Hdbl/cTqcdpnC1MHCbp0TcrA9dDU4mvrj/AHClqca6dnh/OyrhTkHDWZovibCcug9hLJudlbjzeLX513KzXDxCdcof2wnaUgrOOvEUu0xuPxTDJ05U/uHnKHQYjL0wf3mGS4nERl1MP5kFsNl1KMnTdGjLlg/ezPVu0ZUq9fJ0m2Z73SsLI2/cBd/B1Fs+K6DoTG19w02OAXJLZajJkpp8jCJWMUSRCLkNC6KLLhVVFS+wRQUQKkTc/gjXJEiQJSssFdhouBCEIMIQhACEIQAhCEAIQhACEIQAhCEQBCyEYBRCFgFFkIAQhCAEKLIAQhCAEIQgBRCyAFUQhYBCiygCEIQAhLIC2K3QRsVllSJKVK2zDnz9生成的有点长，后面的被我删除了" />
+    <img src="./imgs/c71f11e055fad46906a7e52d321d4785.jpg" />    
+  <script type="text/javascript" src="index_bundle.0fac93adc8b2e76b43e9.js"></script></body>
+</html>
+
+```
+结束
