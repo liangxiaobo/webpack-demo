@@ -17,13 +17,13 @@
 
 ### 第二步 安装 webpack
 
-```
+```bash
 npm install --save-dev webpack
 ```
 
 ### 第三步 创建package.json
 
-```
+```bash
 npm init -y
 ```
 之后，根目录下会多一个文件package.json
@@ -48,10 +48,10 @@ index.ejs的内容：
 
 ```
 安装 html-webpack-plugin 插件 https://www.npmjs.com/package/html-webpack-plugin
-```
+```bash
 npm install --save-dev html-webpack-plugin
 ```
-### webpack-config.js
+**webpack-config.js**
 
 ```javascript
 const path = require('path');
@@ -74,11 +74,11 @@ module.exports = {
 }
 
 ```
-执行命令 
+**执行命令 **
 ```
 webpack
 ```
-build目录结构：
+**build目录结构：**
 ```
 ├── index_bundle.9c7e5a148ecac4e50789.js
 └── index.html
