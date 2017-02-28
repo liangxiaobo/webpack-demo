@@ -85,7 +85,7 @@ build目录结构：
 
 ```
 build/index.html
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -110,7 +110,7 @@ js已经被引用到页脚了
 npm install --save-dev uglifyjs-webpack-plugin
 ```
 ### webpack.config.js配置修改：
-```
+```javascript
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
@@ -134,7 +134,7 @@ module.exports = {
 
 ```
 看index.js的源码
-```
+```javascript
 /*随便写点js用来测试*/
 (function(){
         window.onload = function(){
@@ -145,7 +145,7 @@ module.exports = {
 
 ```
 生成后的文件build/index.js
-```
+```javascript
 !function(n){function t(r){if(o[r])return o[r].exports;var e=o[r]={i:r,l:!1,exports:{}};return n[r].call(e.exports,e,e.exports,t),e.l=!0,e.exports}var o={};return t.m=n,t.c=o,t.i=function(n){return n},t.d=function(n,o,r){t.o(n,o)||Object.defineProperty(n,o,{configurable:!1,enumerable:!0,get:r})},t.n=function(n){var o=n&&n.__esModule?function(){return n.default}:function(){return n};return t.d(o,"a",o),o},t.o=function(n,t){return Object.prototype.hasOwnProperty.call(n,t)},t.p="",t(t.s=0)}([function(n,t){!function(){window.onload=function(){console.log("调用onload事件"),alert("页面加载的时候弹出来")}}()}]);
 
 ```
@@ -160,7 +160,7 @@ npm install --save-dev extract-text-webpack-plugin
 npm install css-loader style-loader --save-dev
 ```
 ### webpack.config.js修改
-```
+```javascript
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
@@ -209,7 +209,7 @@ module.exports = {
     └── index.css
 ```
 build/inde.html的代码：
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -231,7 +231,7 @@ build/inde.html的代码：
 
 ### 看看生成前后的index.css的对比
 源码：
-```
+```css
 /*随便写点css*/
 body{
         background: red;
@@ -252,7 +252,7 @@ body{background:red;font-size:2em}
 └── timg.jpg // size: 28616 byte
 ```
 在webpack.config.js module里添加:
-```
+```javascript
  module: {
                 rules: [
                         {
@@ -277,7 +277,7 @@ npm install --save-dev url-loader file-loader
 limit 是指小于30000byte图片将转换成base64，否则的话，将图片打包到buile/imgs下面，ext是指文件的后缀（jpb,gif等）
 
 index.ejs内容添加：
-```
+```html
 <img src="<%= require('../imgs/timg.jpg') %>" />
 <img src="<%= require('../imgs/a.jpg') %>" />
 
@@ -292,7 +292,7 @@ index.ejs内容添加：
     └── index.css
 ```
 来看生成的index.html内容:
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
