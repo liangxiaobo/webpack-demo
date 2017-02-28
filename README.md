@@ -29,7 +29,7 @@ npm init -y
 之后，根目录下会多一个文件package.json
 
 index.ejs的内容：
-```
+```html
 <!DOCTYPE html>
 <html>
   <head>
@@ -53,7 +53,7 @@ npm install --save-dev html-webpack-plugin
 ```
 ### webpack-config.js
 
-```
+```javascript
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const templatePath = __dirname + "/src/template/";
