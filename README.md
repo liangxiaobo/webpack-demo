@@ -78,7 +78,7 @@ module.exports = {
 ```
 webpack
 ```
-目录结构：
+build目录结构：
 ```
 ├── index_bundle.9c7e5a148ecac4e50789.js
 └── index.html
