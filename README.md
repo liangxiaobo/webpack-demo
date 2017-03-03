@@ -2,6 +2,8 @@
 - 学习如何使用webpack2 生成一个html
 - 压缩js、css并引用到页面
 
+npm 的镜像修改成淘宝的镜像 http://npm.taobao.org
+
 ### 第一步 准备一下所需要的文件，目录结构
 
 ```
