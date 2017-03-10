@@ -27,7 +27,7 @@ npm install --save-dev webpack
 
 ```bash
 npm init -y
-// 也可以用 npm init 按照步骤一步一步往下走
+# 也可以用 npm init 按照步骤一步一步往下走
 ```
 之后，根目录下会多一个文件package.json
 
