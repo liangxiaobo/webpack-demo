@@ -30,6 +30,19 @@ npm init -y
 ```
 之后，根目录下会多一个文件package.json
 
+```javascript
+/*
+ * webpack 的命令在执行的时候应该是 webpack --config webpack.config.js 需要带上你的webpack.config.js
+ * 当你单独执行webpack命令时，webpack找你根目录的webpack.config.js 
+ * 如果你用npm install --save-dev webpack 安装webpack时你应该用 ./node_modules/.bin/webpack --config webpack.config.js
+ * package.json中的script 中会自动加上前缀 ./node_modules/.bin 所以 script 里的 webpack 就是你项目本身的webpack
+ */
+"scripts": {
+    "dev": "webpack --config dev.webpack.config.js",         // 开发时的执行 npm run dev 
+    "release": "webpack --config release.webpack.config.js", // 发布生产时的执行 npm run release 
+}
+```
+
 index.ejs的内容：
 ```html
 <!DOCTYPE html>
